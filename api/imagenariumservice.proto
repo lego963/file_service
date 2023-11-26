@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package imaginariumservice;
+
+option go_package = "./file_service";
+
+service FileService {
+  rpc SaveFile (FileRequest) returns (FileResponse);
+  rpc GetFileList (Empty) returns (FileListResponse);
+  rpc GetFile (FileRequest) returns (stream FileResponse);
+}
+
+message FileRequest {
+  string filename = 1;
+  bytes data = 2;
+}
+
+message FileResponse {
+  bytes data = 1;
+}
+
+message FileListResponse {
+  repeated FileInfo files = 1;
+}
+
+message FileInfo {
+  string filename = 1;
+  string created_at = 2;
+  string updated_at = 3;
+}
+
+message Empty {}
